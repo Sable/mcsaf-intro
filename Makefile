@@ -1,4 +1,6 @@
 SHELL := /bin/bash
+
+NAME=doe
 TEST = ""
 
 TESTS = \
@@ -53,5 +55,10 @@ clean:
 	rm -rf profiling-reports
 	rm -rf instrumented
 	rm -f *.class
+
+release:
+	make clean
+	rm McLabCore.jar
+	zip -r $(NAME).zip .
 
 
