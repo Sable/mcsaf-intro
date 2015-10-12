@@ -14,6 +14,12 @@ the instrumented source on stdout. This instrumented code is to be used with the
 profiler.m function, which takes a string (i.e. a function call) as an argument and
 evals it.
 
+The pre-compiled jar archive containing all the framework libraries necessary to
+compile and execute the examples is available from the binary files associated
+to the latest 'comp621-2015-vX.X' tag for this repository:
+
+https://github.com/Sable/mcsaf-intro/releases/
+
 To compile one of the classes:
 
 javac -cp McLabCore.jar RoundTrip.java
