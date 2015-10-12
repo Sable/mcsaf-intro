@@ -20,8 +20,14 @@ McLabCore.jar:
 Instrumenter.class: Instrumenter.java McLabCore.jar
 	javac -cp McLabCore.jar Instrumenter.java
 
-reports: 
-	mkdir reports
+ReachingDefs.class: ReachingDefs.java McLabCore.jar
+	javac -cp McLabCore.jar ReachingDefs.java
+
+analysis-reports:
+	mkdir analysis-reports
+
+profiling-reports: 
+	mkdir profiling-reports
 
 instrumented:
 	mkdir instrumented
@@ -29,19 +35,23 @@ instrumented:
 instrumented/profiler.m: instrumented
 	cp profiler.m instrumented
 
-$(TESTS): reports
-	$(MAKE) TEST=$@ reports/$@.txt
+$(TESTS): profiling-reports analysis-reports
+	$(MAKE) TEST=$@ profiling-reports/$@.txt
+	$(MAKE) TEST=$@ analysis-reports/$@.txt
 
 instrumented/$(TEST).m: instrumented examples/$(TEST).m Instrumenter.class
 	$(INSTRUMENT) examples/$(TEST).m > $@
 
-reports/$(TEST).txt: instrumented/profiler.m instrumented/$(TEST).m
+profiling-reports/$(TEST).txt: instrumented/profiler.m instrumented/$(TEST).m
 	cd instrumented/ && $(RUN_ON_MATLAB) "profiler('"$(TEST)"()')" > ../$@
 
+analysis-reports/$(TEST).txt: ReachingDefs.class McLabCore.jar
+	java -cp McLabCore.jar:. ReachingDefs examples/$(TEST).m > $@
+
 clean:
-	rm -f reports/*.txt
-	rm -f instrumented/*.m
-	cp profiler.m instrumented
+	rm -rf analysis-reports
+	rm -rf profiling-reports
+	rm -rf instrumented
 	rm -f *.class
 
 
