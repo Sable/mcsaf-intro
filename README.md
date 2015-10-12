@@ -15,6 +15,7 @@ profiler.m function, which takes a string (i.e. a function call) as an argument 
 evals it.
 
 To automatically run the ReachingDefs and Instrumenter on a few simple examples:
+
     make
 
 # Pre-requisite
