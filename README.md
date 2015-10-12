@@ -14,11 +14,20 @@ the instrumented source on stdout. This instrumented code is to be used with the
 profiler.m function, which takes a string (i.e. a function call) as an argument and
 evals it.
 
+To automatically run the ReachingDefs and Instrumenter on a few simple examples:
+    make
+
+# Pre-requisite
+
 The pre-compiled jar archive containing all the framework libraries necessary to
 compile and execute the examples is available from the binary files associated
 to the latest 'comp621-2015-vX.X' tag for this repository:
 
 https://github.com/Sable/mcsaf-intro/releases/
+
+The Makefile provided automatically downloads it.
+
+# Quick reference for using the java SDK on the commandline.
 
 To compile one of the classes:
 
@@ -28,6 +37,3 @@ To run:
 
     java -cp .:McLabCore.jar RoundTrip mfile.m
 
-To download McLabCore, compile the Instrumenter, run it on 'examples', and run the resulting instrumented examples on MATLAB:
-
-    make
