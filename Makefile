@@ -2,34 +2,40 @@ SHELL := /bin/bash
 TEST = ""
 
 TESTS = \
-    empty_lines \
     for_script \
-    if_script \
-    multiline_script \
-    multiple_functions \
     simple_function \
-    simple_script \
-    while_script
+    basic_redefinition
 
 
 .PHONY: tests $(TESTS)
 
 tests: $(TESTS)
 
-INSTRUMENT = java -cp .:../McLabCore.jar Instrumenter
+INSTRUMENT = java -cp .:McLabCore.jar Instrumenter
 RUN_ON_MATLAB = matlab -nodisplay -r 
 
-Instrumenter.class: Instrumenter.java
-	javac -cp ../McLabCore.jar Instrumenter.java
+McLabCore.jar:
+	wget https://github.com/Sable/mcsaf-intro/releases/download/comp621-2015-v0.9/McLabCore.jar
 
+Instrumenter.class: Instrumenter.java McLabCore.jar
+	javac -cp McLabCore.jar Instrumenter.java
 
-$(TESTS): 
+reports: 
+	mkdir reports
+
+instrumented:
+	mkdir instrumented
+
+instrumented/profiler.m: instrumented
+	cp profiler.m instrumented
+
+$(TESTS): reports
 	$(MAKE) TEST=$@ reports/$@.txt
 
-instrumented/$(TEST).m: examples/$(TEST).m Instrumenter.class
+instrumented/$(TEST).m: instrumented examples/$(TEST).m Instrumenter.class
 	$(INSTRUMENT) examples/$(TEST).m > $@
 
-reports/$(TEST).txt: instrumented/$(TEST).m
+reports/$(TEST).txt: instrumented/profiler.m instrumented/$(TEST).m
 	cd instrumented/ && $(RUN_ON_MATLAB) "profiler('"$(TEST)"()')" > ../$@
 
 clean:

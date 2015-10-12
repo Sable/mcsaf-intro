@@ -22,8 +22,12 @@ https://github.com/Sable/mcsaf-intro/releases/
 
 To compile one of the classes:
 
-javac -cp McLabCore.jar RoundTrip.java
+    javac -cp McLabCore.jar RoundTrip.java
 
 To run:
 
-java -cp .:McLabCore.jar RoundTrip mfile.m
+    java -cp .:McLabCore.jar RoundTrip mfile.m
+
+To download McLabCore, compile the Instrumenter, run it on 'examples', and run the resulting instrumented examples on MATLAB:
+
+    make
