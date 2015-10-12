@@ -17,7 +17,7 @@ INSTRUMENT = java -cp .:McLabCore.jar Instrumenter
 RUN_ON_MATLAB = matlab -nodisplay -r 
 
 McLabCore.jar:
-	wget https://github.com/Sable/mcsaf-intro/releases/download/comp621-2015-v0.9/McLabCore.jar
+	wget https://github.com/Sable/mcsaf-intro/releases/download/comp621-2015-v1.1/McLabCore.jar
 
 Instrumenter.class: Instrumenter.java McLabCore.jar
 	javac -cp McLabCore.jar Instrumenter.java
