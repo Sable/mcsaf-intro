@@ -1,0 +1,151 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red50\green98\blue178;\red255\green255\blue255;\red99\green99\blue99;
+}
+\margl1440\margr1440\vieww11260\viewh13960\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 Pre-requisites: Java Ant\
+\
+Presentation notes: \
+\
+alt+Space iTerm\
+cmd+d to split vertically\
+cmd+] or +[ to switch between panes\
+\
+Open the following pages in browser:\
+\
+[1] {\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/blob/master/languages/Natlab/src/natlab.ast"}}{\fldrslt https://github.com/Sable/mclab-core/blob/master/languages/Natlab/src/natlab.ast}}\
+\
+\pard\pardeftab720\sl500
+
+\b\fs36 \cf2 \cb3 [2] github.com/{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/tree/0f11f55e090c40ccfe185cb1bbc5d624e6859758"}}{\fldrslt mclab-core}}
+\b0 \cf4 /{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/tree/0f11f55e090c40ccfe185cb1bbc5d624e6859758/languages"}}{\fldrslt \cf2 languages}}/{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/tree/0f11f55e090c40ccfe185cb1bbc5d624e6859758/languages/Natlab"}}{\fldrslt \cf2 Natlab}}/{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/tree/0f11f55e090c40ccfe185cb1bbc5d624e6859758/languages/Natlab/src"}}{\fldrslt \cf2 src}}/{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/tree/0f11f55e090c40ccfe185cb1bbc5d624e6859758/languages/Natlab/src/nodecases"}}{\fldrslt \cf2 nodecases}}/{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/tree/0f11f55e090c40ccfe185cb1bbc5d624e6859758/languages/Natlab/src/nodecases/natlab"}}{\fldrslt \cf2 natlab}}/
+\b \cf0 NatlabAbstractNodeCaseHandler.java
+\b0\fs24 \cb1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\
+GOAL: Give documentation pointers and code templates for quick acquisition of one of our two static analysis framework, McSAF, to get you started on implementing static analyses \'93in the real world\'94!\
+\
+\
+1. Give out McSAF handout from Ismail Badawi\
+\
+{\field{\*\fldinst{HYPERLINK "http://badawi.io/621/mclabhandout.pdf"}}{\fldrslt http://badawi.io/621/mclabhandout.pdf}} \
+\
+2. Walk-through of how that translates to the Java implementation (1.25 hour)\
+\
+2.1 Explain content of mcsaftutorial-2015\
+\
+Will be made available after the class.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 2.2 Explain how to output the AST using McLab core get the name of nodes\
+\
+java -jar McLabCore.jar \'97xml file.m\
+\
+Notes: \
+\
+\pard\pardeftab720\sl300
+
+\b\fs26 \cf2 \cb3 github.com/Sable/mclab-core/{\field{\*\fldinst{HYPERLINK "https://github.com/Sable/mclab-core/blob/0f11f55e090c40ccfe185cb1bbc5d624e6859758/languages/Natlab/src/natlab.ast"}}{\fldrslt languages/Natlab/src/natlab.ast}}
+\b0\fs24 \cf0 \cb1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+2.3 RoundTrip example\
+\
+2.3.1 Simple Parsing and Pretty Print Example\
+\
+javac -cp McLabCore.jar RoundTrip.java\
+java -cp McLabCore.jar:./ RoundTrip file.m\
+\
+2.3.2 Equivalent McLabCore.js option\
+\
+java -jar McLabCore.jar -p file.m\
+\
+2.3.3 Example of parsing error\
+\
+open ../examples/for_script_parse_error.m\
+java -jar McLabCore.jar -p ../examples/for_script_parse_error.m\
+java -cp McLabCore.jar:./ RoundTrip ../examples/for_script_parse_error.m\
+\
+\
+2.4 ReachingDefs example\
+\
+2.4.1 Write 6 steps on board\
+\
+1- Problem definition:\
+\
+A definition \'91d\'92 may reaches point \'91p\'92 if it defines a variable \'91x\'92 on zero or more paths from entry to \'91p\'92 and \'91x\'92 is not redefined on the same path.\
+\
+2- Abstraction\
+\
+A set of definitions. \
+\
+Ordering: Every possible combination of definitions enclosed by top and bottom\
+\
+3-  Forward or Backward\
+\
+Forward: because it uses information from the past\
+\
+4- Rules\
+\
+AssignStmt\
+\
+out = (in - kill) + gen\
+\
+Every other\
+\
+out = in\
+\
+5- Merge\
+\
+union\
+\
+6- Initial values for abstractions\
+out(entry) = empty set (least safe)\
+out(Si) = empty set (most unsafe)\
+\
+\
+2.4.2 Review what is the implementation for a ReachingDefs analysis\
+\
+2.5 Show where to get the various cases\
+\
+[2] \
+ \
+2.6 Instrumenter example\
+\
+2.7 Show how to find the different methods available for the node types\
+\
+I mostly use Github search features. Otherwise, once you know the node names, Eclipse might provide you with good auto-completion.\
+\
+\
+3. Mention Relevant Parts of Jesse Doherty Master Thesis as closing remarks\
+\
+4. Show mclab-core wiki with other analyses\
+\
+GOTCHAS:\
+\
+1. caseASTNode repeated where needed\
+2. explicitly copy data structures on each case\
+3. analysis results need to be explicitly stored to persist after completion\
+\
+If all else fails and you are stuck more than 30 min. on a bug you don\'92t understand, write on the mclab mailing list:\
+\
+mclab@cs.mcgill.ca\
+\
+Give me your emails so I will whitelist you all for posting on the list.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 NON-GOAL: That won\'92t be a complete survey of (the complicated!) MATLAB semantics and McSAF features and you most probably won\'92t have time to master any of those for your assignments, so for the completists and perfectionists I would advise to take an incremental approach. In fact, this is the way we have been doing research on the topic for the >6 years!\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+WONT DO\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 4. List all MATLAB AST node types and the semantics of their implementation\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\cf0 \
+}
