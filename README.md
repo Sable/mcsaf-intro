@@ -38,3 +38,6 @@ To run:
 
     java -cp .:McLabCore.jar RoundTrip mfile.m
 
+# Version dependency
+
+The mclab framework provided with McLabCore.jar requires Java 1.8 or greater for compilation and execution.
