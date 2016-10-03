@@ -1,4 +1,4 @@
-This is the code from COMP621 lecture on October 6, 2015. It was updated and
+This is the code from COMP621 lecture on October 4th, 2016. It was updated and
 adapted by Erick Lavoie from Ismail Badawi introduction given for the 2014
 version of the class.
 
@@ -21,20 +21,19 @@ To automatically run the ReachingDefs and Instrumenter on a few simple examples:
 # Pre-requisite
 
 The pre-compiled jar archive containing all the framework libraries necessary to
-compile and execute the examples is available from the binary files associated
-to the latest 'comp621-2015-vX.X' tag for this repository:
+compile and execute the examples is available from the releases of McLabCore:
 
-https://github.com/Sable/mcsaf-intro/releases/
+https://github.com/Sable/mclab-core/releases
 
-The Makefile provided automatically downloads it.
+The Makefile provided automatically downloads the latest release (at the time of updating this tutorial).
 
 # Quick reference for using the java SDK on the commandline.
 
-To compile one of the classes:
+To compile one of the Java classes:
 
     javac -cp McLabCore.jar RoundTrip.java
 
-To run:
+To use the compiled Java class to instrument a file 'mfile.m':
 
     java -cp .:McLabCore.jar RoundTrip mfile.m
 
