@@ -1,6 +1,8 @@
 This is the code from COMP621 lecture on October 4th, 2016. It was updated and
 adapted by Erick Lavoie from Ismail Badawi introduction given for the 2014
-version of the class.
+version of the class. An overview of McSaf is also provided as a [pdf](mcsaf-intro.pdf) 
+that details the changes in McLabCore since the original design of McSaf in 
+[Jessie Doherty's master thesis](http://www.sable.mcgill.ca/publications/thesis/masters-jdoherty/mcsafthesis.pdf).
 
 RoundTrip.java: "Hello world" example that just parses an input file and
 pretty prints the AST.
