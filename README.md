@@ -25,7 +25,7 @@ compile and execute the examples is available from the releases of McLabCore:
 
 https://github.com/Sable/mclab-core/releases
 
-The Makefile provided automatically downloads the latest release (at the time of updating this tutorial).
+The Makefile provided automatically downloads a recent release (it was the latest at the time of updating this tutorial).
 
 # Quick reference for using the java SDK on the commandline.
 
