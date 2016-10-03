@@ -6,9 +6,12 @@
 %  From a design standpoint, the main advantages of putting the plumbing required to 
 %  execute instrumented code inside a 'profiler' function rather than directly in the instrumented code are that:
 %  1. We avoid the extra-code that would need to be generated in the instrumented code, which would require
-%     different logic to support both scripts and functions;
+%     different logics to support both scripts and functions;
 %  2. We can test the profiler independently of the instrumented code with small hand-written instrumented examples
 %     before testing on automatically instrumented ones.
+%
+%  You can customize the profiler behaviour for a different task by modifying the 'setup' and 'output' phases with
+%  different data structures.
 %
 function profiler(call_expr)
   disp('Setup of profiling data structures');
