@@ -21,6 +21,13 @@ public class Instrumenter extends AbstractNodeCaseHandler {
     }
   }
 
+  @Override public void caseAssignStmt(AssignStmt node) {
+    if (skip.contains(node)) {
+      return;
+    }
+    insertIncrementAfter(node);
+  }
+
   @Override public void caseFunction(Function node) {
     insertCounterDeclaration(node);
     caseASTNode(node);
@@ -30,13 +37,6 @@ public class Instrumenter extends AbstractNodeCaseHandler {
     insertIncrementAtStart(node);
     skip.add(node.getAssignStmt());
     caseASTNode(node);
-  }
-
-  @Override public void caseAssignStmt(AssignStmt node) {
-    if (skip.contains(node)) {
-      return;
-    }
-    insertIncrementAfter(node);
   }
 
   private void insertCounterDeclaration(Function node) {

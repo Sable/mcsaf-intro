@@ -18,8 +18,8 @@ import com.google.common.base.Joiner;
 // (5) Merge?
 // set union
 // (6) Initial and approximation for others
-// out(entry) = {}
-// out(Si) = {}  
+// out(entry) = {} (least safe)
+// out(Si) = {}    (most unsafe)
 
 public class ReachingDefs extends ForwardAnalysis<Set<AssignStmt>> { // (2) and (3)
   public ReachingDefs(ASTNode tree) {
